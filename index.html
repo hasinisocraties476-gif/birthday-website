@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Birthday Surprise 🎉</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="balloons"></div>
+        <div class="flowers"></div>
+        <div class="hearts"></div>
+    </div>
+
+    <!-- Page 1: Countdown Timer -->
+    <div id="countdownPage" class="page active">
+        <div class="countdown-container">
+            <h1 class="title">🎂 Birthday Countdown 🎂</h1>
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-value" id="days">0</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="hours">0</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="minutes">0</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="seconds">0</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+            <button class="next-btn" onclick="nextPage()">Next →</button>
+        </div>
+    </div>
+
+    <!-- Page 2: Cake Customizer -->
+    <div id="cakePage" class="page">
+        <div class="cake-container">
+            <h1 class="title">🎨 Customize Your Cake 🎨</h1>
+            
+            <div class="customizer">
+                <div class="cake-preview">
+                    <div class="cake" id="cakePreview">
+                        <div class="cake-layer cake-bottom" id="cakeBottom"></div>
+                        <div class="cake-layer cake-middle" id="cakeMiddle"></div>
+                        <div class="cake-layer cake-top" id="cakeTop"></div>
+                        <div class="frosting" id="frosting"></div>
+                        <div id="toppings" class="toppings"></div>
+                        <div id="candles" class="candles"></div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <div class="control-group">
+                        <h3>Flavour</h3>
+                        <select id="flavour" onchange="updateCake()">
+                            <option value="chocolate">🍫 Chocolate</option>
+                            <option value="vanilla">🍦 Vanilla</option>
+                            <option value="strawberry">🍓 Strawberry</option>
+                            <option value="red-velvet">💄 Red Velvet</option>
+                            <option value="carrot">🥕 Carrot</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <h3>Frosting Color</h3>
+                        <div class="color-options">
+                            <button class="color-btn" style="background: #FF1744;" onclick="setFrosting('#FF1744')" title="Red">❤️</button>
+                            <button class="color-btn" style="background: #FF6F00;" onclick="setFrosting('#FF6F00')" title="Orange">🧡</button>
+                            <button class="color-btn" style="background: #FFD600;" onclick="setFrosting('#FFD600')" title="Yellow">💛</button>
+                            <button class="color-btn" style="background: #00E676;" onclick="setFrosting('#00E676')" title="Green">💚</button>
+                            <button class="color-btn" style="background: #00B0FF;" onclick="setFrosting('#00B0FF')" title="Blue">💙</button>
+                            <button class="color-btn" style="background: #D500F9;" onclick="setFrosting('#D500F9')" title="Purple">💜</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h3>Toppings</h3>
+                        <div class="topping-options">
+                            <label><input type="checkbox" value="sprinkles" onchange="updateCake()"> Sprinkles ✨</label>
+                            <label><input type="checkbox" value="chocolateChips" onchange="updateCake()"> Chocolate Chips 🍫</label>
+                            <label><input type="checkbox" value="fruits" onchange="updateCake()"> Fresh Fruits 🍓</label>
+                            <label><input type="checkbox" value="nuts" onchange="updateCake()"> Nuts 🥜</label>
+                            <label><input type="checkbox" value="whipped" onchange="updateCake()"> Whipped Cream ☁️</label>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h3>Candles</h3>
+                        <input type="range" id="candles" min="1" max="25" value="5" onchange="updateCake()">
+                        <span id="candleCount">5 candles</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="prev-btn" onclick="prevPage()">← Back</button>
+                <button class="next-btn" onclick="nextPage()">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 3: Gifts Reveal -->
+    <div id="giftsPage" class="page">
+        <div class="gifts-container">
+            <h1 class="title gifts-title">I have something for you! 🎁</h1>
+            
+            <div class="gift-boxes">
+                <div class="gift-box" id="gift1" onclick="openGift(1)">
+                    <div class="gift-wrap red">
+                        <div class="gift-ribbon"></div>
+                        <div class="gift-bow"></div>
+                    </div>
+                    <p>Gift 1</p>
+                </div>
+
+                <div class="gift-box" id="gift2" onclick="openGift(2)">
+                    <div class="gift-wrap blue">
+                        <div class="gift-ribbon"></div>
+                        <div class="gift-bow"></div>
+                    </div>
+                    <p>Gift 2</p>
+                </div>
+
+                <div class="gift-box" id="gift3" onclick="openGift(3)">
+                    <div class="gift-wrap gold">
+                        <div class="gift-ribbon"></div>
+                        <div class="gift-bow"></div>
+                    </div>
+                    <p>Gift 3</p>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="prev-btn" onclick="prevPage()">← Back</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gift 1: Letter Modal -->
+    <div id="letterModal" class="modal">
+        <div class="modal-content letter-content">
+            <span class="close" onclick="closeModal('letterModal')">&times;</span>
+            <div class="letter">
+                <h2>💌 A Letter For You 💌</h2>
+                <textarea id="letterText" placeholder="Write your personalized letter here...">Dear Friend,
+
+On your special day, I want you to know how amazing you are! You bring so much joy and laughter to everyone around you. Thank you for being the best friend ever!
+
+Here's to celebrating YOU today!
+
+With love,
+Your Best Friend 🎉</textarea>
+                <button onclick="saveLetter()">Save Letter</button>
+                <button onclick="closeModal('letterModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gift 2: Photo Gallery Modal -->
+    <div id="galleryModal" class="modal">
+        <div class="modal-content gallery-content">
+            <span class="close" onclick="closeModal('galleryModal')">&times;</span>
+            <h2>📸 Photo Gallery 📸</h2>
+            <div class="photo-upload">
+                <input type="text" id="photoUrl" placeholder="Paste image URL here">
+                <button onclick="addPhoto()">Add Photo</button>
+            </div>
+            <div id="gallery" class="gallery">
+                <p class="empty-text">Add your favorite photos! 🎀</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gift 3: YouTube Link Modal -->
+    <div id="youtubeModal" class="modal">
+        <div class="modal-content youtube-content">
+            <span class="close" onclick="closeModal('youtubeModal')">&times;</span>
+            <h2>🎥 Special Video 🎥</h2>
+            <div class="youtube-input">
+                <input type="text" id="youtubeUrl" placeholder="Paste YouTube video URL or ID (e.g., dQw4w9WgXcQ)">
+                <button onclick="loadYouTube()">Load Video</button>
+            </div>
+            <div id="youtubePlayer" class="youtube-player"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
